@@ -197,6 +197,23 @@
         </label>
       </div>
 
+      <!-- Honeypot — hidden from real users, bots will fill it in -->
+      <div
+        class="honeypot"
+        aria-hidden="true"
+        tabindex="-1"
+      >
+        <label for="website">Website</label>
+        <input
+          id="website"
+          v-model="honeypot"
+          type="text"
+          name="website"
+          autocomplete="off"
+          tabindex="-1"
+        />
+      </div>
+
       <!-- Submit -->
       <button
         type="submit"
@@ -232,13 +249,17 @@
 <script setup>
 import Hand from '~/components/Hand.vue'
 
-// --- Word cycling ---
+// --- Spam prevention ---
+const honeypot = ref('')
+const formLoadTime = ref(0)
+const MIN_SUBMIT_MS = 3000 // humans take at least 3s to fill a form
 const words = ['looks', 'feels', 'sounds']
 const currentWordIndex = ref(0)
 const currentWord = computed(() => words[currentWordIndex.value])
 let interval
 
 onMounted(() => {
+  formLoadTime.value = Date.now()
   interval = setInterval(() => {
     currentWordIndex.value = (currentWordIndex.value + 1) % words.length
   }, 1000)
@@ -322,6 +343,16 @@ function validate() {
 
 // --- Submit ---
 function handleSubmit() {
+  // Spam checks — fail silently so bots get no feedback
+  if (honeypot.value) {
+    console.warn('Honeypot triggered — submission blocked.')
+    return
+  }
+  if (Date.now() - formLoadTime.value < MIN_SUBMIT_MS) {
+    console.warn('Submitted too fast — submission blocked.')
+    return
+  }
+
   if (!validate()) return
 
   console.log('Form submitted:', {
@@ -335,6 +366,17 @@ function handleSubmit() {
 </script>
 
 <style>
+/* Honeypot — moved off-screen rather than display:none so bots don't skip it */
+.honeypot {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
 .ik-logo {
   /* filter: grayscale(100%); */
 }
