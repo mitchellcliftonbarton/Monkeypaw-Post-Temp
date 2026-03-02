@@ -1,0 +1,101 @@
+@import 'tailwindcss';
+
+/*
+Fonts
+*/
+
+@font-face {
+  font-family: 'Neue Haas Display';
+  src: url('/fonts/NeueHaasDisplay-Light.woff2') format('woff2');
+  font-weight: 200;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Neue Haas Display';
+  src: url('/fonts/NeueHaasDisplay-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Neue Haas Display';
+  src: url('/fonts/NeueHaasDisplay-Black.woff2') format('woff2');
+  font-weight: 900;
+  font-style: normal;
+}
+
+/*
+Vars
+*/
+
+@layer base {
+  body {
+    background-color: var(--color-black);
+    font-family: var(--font-primary);
+    font-size: var(--text-base);
+    color: #ffffff;
+  }
+}
+
+@theme {
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-transparent: transparent;
+  --color-grey-1: #bfbfbf;
+  --color-coral: #f8aa9b;
+
+  --font-primary: 'Neue Haas Display', sans-serif;
+
+  --text-sm: 1.2rem;
+  --text-sm--line-height: 1.2;
+  --text-base: 1.5rem;
+  --text-base--line-height: 1.2;
+  --text-md: 2.5rem;
+  --text-md--line-height: 1.2;
+  --text-lg: 5rem;
+  --text-lg--line-height: 1.2;
+}
+
+img[loading='lazy'] {
+  opacity: 0;
+  transition: opacity 0.4s;
+
+  &.loaded {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 0.5s forwards;
+}
+
+.animation-delay-1 {
+  animation-delay: 0.1s;
+}
+
+.animation-delay-2 {
+  animation-delay: 0.2s;
+}
+
+.animation-delay-3 {
+  animation-delay: 0.3s;
+}
+
+.animation-delay-4 {
+  animation-delay: 0.4s;
+}
+
+.animation-delay-5 {
+  animation-delay: 0.5s;
+}
