@@ -48,7 +48,16 @@
     </div>
 
     <!-- Form -->
+    <div
+      v-if="submitSuccess"
+      class="fade-in w-full max-w-[600px] flex flex-col items-center gap-4 text-center"
+    >
+      <p class="text-md font-black text-white">We'll be in touch.</p>
+      <p class="text-base text-grey-1 font-light">Thanks for reaching out, {{ form.name.split(' ')[0] }}.</p>
+    </div>
+
     <form
+      v-else
       class="fade-in w-full max-w-[600px] gap-12 flex flex-col items-center"
       @submit.prevent="handleSubmit"
     >
@@ -63,7 +72,7 @@
           id="name"
           v-model="form.name"
           type="text"
-          placeholder="Jane Smith"
+          placeholder="Your Name"
           class="w-full bg-transparent border-b tracking-[-0.02em] border-grey-1 text-white placeholder:text-grey-1 py-1 focus:outline-none focus:border-white transition-colors duration-200"
           :class="{ 'border-coral': errors.name }"
         />
@@ -215,12 +224,21 @@
       </div>
 
       <!-- Submit -->
-      <button
-        type="submit"
-        class="text-coral text-sm cursor-pointer px-5 py-2 border border-coral rounded-lg font-light lg:hover:bg-coral lg:hover:text-black transition-colors duration-200"
-      >
-        Tell me more
-      </button>
+      <div class="flex flex-col items-center gap-3 w-full">
+        <button
+          type="submit"
+          :disabled="isSubmitting"
+          class="text-coral text-sm cursor-pointer px-5 py-2 border border-coral rounded-lg font-light lg:hover:bg-coral lg:hover:text-black transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          {{ isSubmitting ? 'Sending...' : 'Tell me more' }}
+        </button>
+        <p
+          v-if="submitError"
+          class="text-coral text-sm"
+        >
+          {{ submitError }}
+        </p>
+      </div>
     </form>
 
     <!-- Footer logos -->
@@ -262,7 +280,7 @@ onMounted(() => {
   formLoadTime.value = Date.now()
   interval = setInterval(() => {
     currentWordIndex.value = (currentWordIndex.value + 1) % words.length
-  }, 1000)
+  }, 600)
 })
 
 onUnmounted(() => {
@@ -342,7 +360,11 @@ function validate() {
 }
 
 // --- Submit ---
-function handleSubmit() {
+const isSubmitting = ref(false)
+const submitSuccess = ref(false)
+const submitError = ref('')
+
+async function handleSubmit() {
   // Spam checks — fail silently so bots get no feedback
   if (honeypot.value) {
     console.warn('Honeypot triggered — submission blocked.')
@@ -355,13 +377,28 @@ function handleSubmit() {
 
   if (!validate()) return
 
-  console.log('Form submitted:', {
-    name: form.name.trim(),
-    email: form.email.trim(),
-    referral: form.referral === 'other' ? form.referralOther.trim() : form.referral,
-    agreeTerms: form.agreeTerms,
-    agreeMarketing: form.agreeMarketing,
-  })
+  isSubmitting.value = true
+  submitError.value = ''
+
+  try {
+    await $fetch('/api/submit', {
+      method: 'POST',
+      body: {
+        name: form.name.trim(),
+        email: form.email.trim(),
+        referral: form.referral,
+        referralOther: form.referralOther.trim(),
+        agreeTerms: form.agreeTerms,
+        agreeMarketing: form.agreeMarketing,
+      },
+    })
+    submitSuccess.value = true
+  } catch (err) {
+    console.error('Submission error:', err)
+    submitError.value = 'Something went wrong. Please try again.'
+  } finally {
+    isSubmitting.value = false
+  }
 }
 </script>
 

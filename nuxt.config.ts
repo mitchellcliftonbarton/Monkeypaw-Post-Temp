@@ -10,4 +10,12 @@ export default defineNuxtConfig({
   },
 
   css: ['./app/assets/css/main.css'],
+
+  runtimeConfig: {
+    clickupToken: '',     // NUXT_CLICKUP_TOKEN
+    clickupListId: '',    // NUXT_CLICKUP_LIST_ID
+    airtableToken: '',    // NUXT_AIRTABLE_TOKEN
+    airtableBaseId: '',   // NUXT_AIRTABLE_BASE_ID
+    airtableTableName: '', // NUXT_AIRTABLE_TABLE_NAME
+  },
 })
