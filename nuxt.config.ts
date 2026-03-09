@@ -5,6 +5,20 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
 
+  app: {
+    head: {
+      titleTemplate: '%s | Monkeypaw Post',
+      link: [
+        { rel: 'icon', type: 'image/png', href: '/favicon.png' },
+      ],
+      meta: [
+        { charset: 'utf-8' },
+        { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+        { name: 'description', content: 'Monkeypaw Post — post production done differently.' },
+      ],
+    },
+  },
+
   vite: {
     plugins: [tailwindcss()],
   },

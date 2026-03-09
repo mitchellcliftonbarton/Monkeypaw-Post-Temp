@@ -1,11 +1,14 @@
 <template>
   <div class="flex flex-col items-center px-4 lg:px-6 py-10 gap-16">
     <!-- Top logo -->
-    <NuxtLink to="/">
+    <NuxtLink
+      to="/"
+      aria-label="Monkeypaw Post – go to homepage"
+    >
       <img
         src="/images/monkeypaw-logo.svg"
         class="w-[80px] lg:w-[120px]"
-        alt="Monkeypaw Post"
+        alt=""
         loading="lazy"
         width="120"
         height="51.96"
@@ -39,8 +42,9 @@
     <div class="fade-in w-full lg:w-1/2 lg:max-w-[800px] flex flex-col items-center lg:items-start gap-6 lg:gap-4">
       <p
         class="text-[7vw] lg:text-[4vw] text-white text-center lg:text-left tracking-[-0.02em] leading-none font-black"
+        aria-label="Post production done different with us"
       >
-        Post production <span class="text-coral">{{ currentWord }}</span
+        Post production <span class="text-coral" aria-hidden="true">{{ currentWord }}</span
         ><br />different with us
       </p>
 
@@ -50,6 +54,7 @@
     <!-- Form -->
     <div
       v-if="submitSuccess"
+      role="status"
       class="fade-in w-full max-w-[600px] flex flex-col items-center gap-4 text-center"
     >
       <p class="text-md font-black text-white">We'll be in touch.</p>
@@ -73,11 +78,14 @@
           v-model="form.name"
           type="text"
           placeholder="Your Name"
-          class="w-full bg-transparent border-b tracking-[-0.02em] border-grey-1 text-white placeholder:text-grey-1 py-1 focus:outline-none focus:border-white transition-colors duration-200"
+          class="w-full bg-transparent border-b tracking-[-0.02em] border-grey-1 text-white placeholder:text-grey-1 py-1 focus:outline-none focus:border-white focus-visible:ring-2 focus-visible:ring-coral focus-visible:ring-offset-4 focus-visible:ring-offset-black focus-visible:rounded-sm transition-colors duration-200"
           :class="{ 'border-coral': errors.name }"
+          :aria-invalid="errors.name ? 'true' : undefined"
+          :aria-describedby="errors.name ? 'name-error' : undefined"
         />
         <p
           v-if="errors.name"
+          id="name-error"
           class="text-coral text-sm -mt-2"
         >
           {{ errors.name }}
@@ -96,11 +104,14 @@
           v-model="form.email"
           type="email"
           placeholder="your@email.com"
-          class="w-full bg-transparent border-b tracking-[-0.02em] border-grey-1 text-white placeholder:text-grey-1 py-1 focus:outline-none focus:border-white transition-colors duration-200"
+          class="w-full bg-transparent border-b tracking-[-0.02em] border-grey-1 text-white placeholder:text-grey-1 py-1 focus:outline-none focus:border-white focus-visible:ring-2 focus-visible:ring-coral focus-visible:ring-offset-4 focus-visible:ring-offset-black focus-visible:rounded-sm transition-colors duration-200"
           :class="{ 'border-coral': errors.email }"
+          :aria-invalid="errors.email ? 'true' : undefined"
+          :aria-describedby="errors.email ? 'email-error' : undefined"
         />
         <p
           v-if="errors.email"
+          id="email-error"
           class="text-coral text-sm -mt-2"
         >
           {{ errors.email }}
@@ -118,8 +129,10 @@
           <select
             id="referral"
             v-model="form.referral"
-            class="w-full bg-transparent border-b tracking-[-0.02em] border-grey-1 text-white placeholder:text-grey-1 py-1 focus:outline-none focus:border-white appearance-none cursor-pointer transition-colors duration-200"
+            class="w-full bg-transparent border-b tracking-[-0.02em] border-grey-1 text-white placeholder:text-grey-1 py-1 focus:outline-none focus:border-white focus-visible:ring-2 focus-visible:ring-coral focus-visible:ring-offset-4 focus-visible:ring-offset-black focus-visible:rounded-sm appearance-none cursor-pointer transition-colors duration-200"
             :class="{ 'border-coral': errors.referral }"
+            :aria-invalid="errors.referral ? 'true' : undefined"
+            :aria-describedby="errors.referral ? 'referral-error' : undefined"
           >
             <option
               value=""
@@ -136,10 +149,11 @@
             <option value="partner">Partner</option>
             <option value="other">Other</option>
           </select>
-          <span class="absolute right-4 top-1/2 -translate-y-1/2 text-grey-1 pointer-events-none">▾</span>
+          <span class="absolute right-0 top-1/2 -translate-y-1/2 text-grey-1 pointer-events-none">▾</span>
         </div>
         <p
           v-if="errors.referral"
+          id="referral-error"
           class="text-coral text-sm -mt-2"
         >
           {{ errors.referral }}
@@ -150,16 +164,23 @@
           v-if="form.referral === 'other'"
           class="flex flex-col gap-4 w-full"
         >
+          <label
+            for="referral-other"
+            class="sr-only"
+          >Please tell us more about how you heard about us</label>
           <input
             id="referral-other"
             v-model="form.referralOther"
             type="text"
             placeholder="Tell us more..."
-            class="w-full bg-transparent border-b tracking-[-0.02em] border-grey-1 text-white placeholder:text-grey-1 py-1 focus:outline-none focus:border-white transition-colors duration-200"
+            class="w-full bg-transparent border-b tracking-[-0.02em] border-grey-1 text-white placeholder:text-grey-1 py-1 focus:outline-none focus:border-white focus-visible:ring-2 focus-visible:ring-coral focus-visible:ring-offset-4 focus-visible:ring-offset-black focus-visible:rounded-sm transition-colors duration-200"
             :class="{ 'border-coral': errors.referralOther }"
+            :aria-invalid="errors.referralOther ? 'true' : undefined"
+            :aria-describedby="errors.referralOther ? 'referral-other-error' : undefined"
           />
           <p
             v-if="errors.referralOther"
+            id="referral-other-error"
             class="text-coral text-sm -mt-2"
           >
             {{ errors.referralOther }}
@@ -185,7 +206,12 @@
               >
               and understand that Monkeypaw does not accept unsolicited submissions or materials. I understand that
               anything sent outside authorized channels is not reviewed and immediately deleted. Further, I agree and
-              confirm that I have reviewed and agreed to Monkeypaw's full Unsolicited Submissions Policy located here.
+              confirm that I have reviewed and agreed to Monkeypaw's full Unsolicited Submissions Policy located
+              <NuxtLink
+                to="/terms#unsolicited-submissions"
+                class="text-coral"
+                >here</NuxtLink
+              >.
             </span>
           </label>
           <p
@@ -228,7 +254,7 @@
         <button
           type="submit"
           :disabled="isSubmitting"
-          class="text-coral text-sm cursor-pointer px-5 py-2 border border-coral rounded-lg font-light lg:hover:bg-coral lg:hover:text-black transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+          class="text-coral text-sm cursor-pointer px-5 py-2 border border-coral rounded-lg font-light lg:hover:bg-coral lg:hover:text-black transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus-visible:ring-2 focus-visible:ring-coral focus-visible:ring-offset-2 focus-visible:ring-offset-black"
         >
           {{ isSubmitting ? 'Sending...' : 'Tell me more' }}
         </button>
@@ -267,11 +293,34 @@
 <script setup>
 import Hand from '~/components/Hand.vue'
 
+useHead({ title: 'Home' })
+
 // --- Spam prevention ---
 const honeypot = ref('')
 const formLoadTime = ref(0)
 const MIN_SUBMIT_MS = 3000 // humans take at least 3s to fill a form
-const words = ['looks', 'feels', 'sounds']
+const words = [
+  'looks',
+  'feels',
+  'sounds',
+  'fits',
+  'smacks',
+  'swerves',
+  'cracks',
+  'sizzles',
+  'slides',
+  'beeps',
+  'bops',
+  'chats',
+  'echoes',
+  'waves',
+  'floats',
+  'zings',
+  'skibidis',
+  'drips',
+  'caps',
+  'flexes',
+]
 const currentWordIndex = ref(0)
 const currentWord = computed(() => words[currentWordIndex.value])
 let interval
@@ -438,5 +487,22 @@ async function handleSubmit() {
 
 .checkbox-custom:checked {
   background-color: var(--color-coral);
+}
+
+.checkbox-custom:focus-visible {
+  outline: 2px solid var(--color-coral);
+  outline-offset: 3px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
 }
 </style>

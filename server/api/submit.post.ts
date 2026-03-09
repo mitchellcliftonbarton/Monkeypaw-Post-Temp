@@ -74,6 +74,10 @@ export default defineEventHandler(async (event) => {
           id: '51d62f09-8c56-4cf0-b1fc-44a59c67ad75', // submission date
           value: submissionDate,
         },
+        {
+          id: 'fb3b299b-e658-408f-b4e7-0fb0fb52c602', // agrees to marketing emails
+          value: !!agreeMarketing,
+        },
       ],
     }),
   })
@@ -113,7 +117,9 @@ export default defineEventHandler(async (event) => {
           const updateRes = await fetch(`${airtableBase}/${existing.id}`, {
             method: 'PATCH',
             headers: airtableHeaders,
-            body: JSON.stringify({ fields: { Name: name /*, 'ClickUp Task ID': clickupData.id */ } }),
+            body: JSON.stringify({
+              fields: { Name: name, 'ClickUp Task ID': clickupData.id, 'Sign-up Source': 'Post' },
+            }),
           })
           airtableData = await updateRes.json()
           if (!updateRes.ok) console.error('[Airtable] Update error:', airtableData)
@@ -124,7 +130,14 @@ export default defineEventHandler(async (event) => {
         const createRes = await fetch(airtableBase, {
           method: 'POST',
           headers: airtableHeaders,
-          body: JSON.stringify({ fields: { Name: name, Email: email /*, 'ClickUp Task ID': clickupData.id */ } }),
+          body: JSON.stringify({
+            fields: {
+              Name: name,
+              Email: email,
+              'ClickUp Task ID': clickupData.id,
+              'Sign-up Source': 'Post',
+            },
+          }),
         })
         airtableData = await createRes.json()
         if (!createRes.ok) console.error('[Airtable] Create error:', airtableData)
