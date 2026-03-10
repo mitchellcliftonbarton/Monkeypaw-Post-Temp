@@ -2,10 +2,10 @@ export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig()
   const body = await readBody(event)
 
-  const { name, email, referral, referralOther, agreeMarketing } = body
+  const { name, email, lookingFor, referral, referralOther, agreeMarketing } = body
 
   // Server-side sanity check
-  if (!name?.trim() || !email?.trim() || !referral?.trim()) {
+  if (!name?.trim() || !email?.trim() || !lookingFor?.trim() || !referral?.trim()) {
     throw createError({ statusCode: 400, statusMessage: 'Missing required fields.' })
   }
 
@@ -15,6 +15,18 @@ export default defineEventHandler(async (event) => {
   //   `Referral: ${referral}`,
   //   `Marketing emails: ${agreeMarketing ? 'Yes' : 'No'}`,
   // ].join('\n')
+
+  const lookingForLabels: Record<string, string> = {
+    'sound-mix-design-edit': 'Sound Mix | Design | Edit',
+    'vfx-animation': 'VFX | Animation',
+    'motion-design-graphics-packages': 'Motion Design | Graphics Packages',
+    'offline-edit-podcast-edit': 'Offline Edit | Podcast Edit',
+    'color-grade': 'Color Grade',
+    'finishing-qc-delivery': 'Finishing | QC | Delivery',
+    'creator-partnerships': 'Creator Partnerships',
+    other: 'Other',
+  }
+  const lookingForValue = lookingForLabels[lookingFor] ?? lookingFor
 
   const referralLabels: Record<string, string> = {
     referral: 'Referral',
@@ -65,6 +77,10 @@ export default defineEventHandler(async (event) => {
         {
           id: '7d6011ea-95db-4362-b045-33fe4d8f4330', // submitter email
           value: email,
+        },
+        {
+          id: 'aa52197b-6166-4314-b72c-40acff3361f0', // what are you looking for
+          value: lookingForValue,
         },
         {
           id: 'e9ce6594-4675-43a6-86c2-cd41a8b59ed4', // how did you hear about us

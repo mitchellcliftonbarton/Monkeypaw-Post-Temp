@@ -8,13 +8,11 @@ export default defineNuxtConfig({
   app: {
     head: {
       titleTemplate: '%s | Monkeypaw Post',
-      link: [
-        { rel: 'icon', type: 'image/png', href: '/favicon.png' },
-      ],
+      link: [{ rel: 'icon', type: 'image/png', href: '/favicon.png' }],
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-        { name: 'description', content: 'Monkeypaw Post — post production done differently.' },
+        { name: 'description', content: "Monkeypaw Post, Jordan Peele's post-production company, blends craft and culture through editorial, color, sound, and finishing services for film and television." },
       ],
     },
   },
@@ -26,10 +24,10 @@ export default defineNuxtConfig({
   css: ['./app/assets/css/main.css'],
 
   runtimeConfig: {
-    clickupToken: '',     // NUXT_CLICKUP_TOKEN
-    clickupListId: '',    // NUXT_CLICKUP_LIST_ID
-    airtableToken: '',    // NUXT_AIRTABLE_TOKEN
-    airtableBaseId: '',   // NUXT_AIRTABLE_BASE_ID
+    clickupToken: '', // NUXT_CLICKUP_TOKEN
+    clickupListId: '', // NUXT_CLICKUP_LIST_ID
+    airtableToken: '', // NUXT_AIRTABLE_TOKEN
+    airtableBaseId: '', // NUXT_AIRTABLE_BASE_ID
     airtableTableName: '', // NUXT_AIRTABLE_TABLE_NAME
   },
 })

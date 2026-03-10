@@ -623,7 +623,7 @@
   <Transition name="fade">
     <button
       v-show="showBackToTop"
-      class="fixed bottom-8 right-8 px-4 py-2 border border-white/30 rounded-lg text-white text-sm font-light cursor-pointer hover:border-coral hover:text-coral transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-coral focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+      class="fixed bottom-8 right-8 px-4 py-2 bg-black border border-white/30 rounded-lg text-white text-sm font-light cursor-pointer hover:border-coral hover:text-coral transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-coral focus-visible:ring-offset-2 focus-visible:ring-offset-black"
       @click="scrollToTop"
     >
       Back to top

@@ -44,11 +44,15 @@
         class="text-[7vw] lg:text-[4vw] text-white text-center lg:text-left tracking-[-0.02em] leading-none font-black"
         aria-label="Post production done different with us"
       >
-        Post production <span class="text-coral" aria-hidden="true">{{ currentWord }}</span
+        Post production
+        <span
+          class="text-coral"
+          aria-hidden="true"
+          >{{ currentWord }}</span
         ><br />different with us
       </p>
 
-      <p class="text-sm lg:text-base text-white font-light">Come see for yourself</p>
+      <p class="text-sm lg:text-base text-white font-light">Curious?</p>
     </div>
 
     <!-- Form -->
@@ -118,6 +122,48 @@
         </p>
       </div>
 
+      <!-- What are you looking for -->
+      <div class="flex flex-col gap-4 w-full">
+        <label
+          for="looking-for"
+          class="text-[.8rem] lg:text-[1vw] text-white uppercase font-light tracking-[.2em]"
+          >What are you looking for?</label
+        >
+        <div class="relative">
+          <select
+            id="looking-for"
+            v-model="form.lookingFor"
+            class="w-full bg-transparent border-b tracking-[-0.02em] border-grey-1 text-white placeholder:text-grey-1 py-1 focus:outline-none focus:border-white focus-visible:ring-2 focus-visible:ring-coral focus-visible:ring-offset-4 focus-visible:ring-offset-black focus-visible:rounded-sm appearance-none cursor-pointer transition-colors duration-200"
+            :class="{ 'border-coral': errors.lookingFor }"
+            :aria-invalid="errors.lookingFor ? 'true' : undefined"
+            :aria-describedby="errors.lookingFor ? 'looking-for-error' : undefined"
+          >
+            <option
+              value=""
+              disabled
+            >
+              Select
+            </option>
+            <option value="sound-mix-design-edit">Sound Mix | Design | Edit</option>
+            <option value="vfx-animation">VFX | Animation</option>
+            <option value="motion-design-graphics-packages">Motion Design | Graphics Packages</option>
+            <option value="offline-edit-podcast-edit">Offline Edit | Podcast Edit</option>
+            <option value="color-grade">Color Grade</option>
+            <option value="finishing-qc-delivery">Finishing | QC | Delivery</option>
+            <option value="creator-partnerships">Creator Partnerships</option>
+            <option value="other">Other</option>
+          </select>
+          <span class="absolute right-0 top-1/2 -translate-y-1/2 text-grey-1 pointer-events-none">▾</span>
+        </div>
+        <p
+          v-if="errors.lookingFor"
+          id="looking-for-error"
+          class="text-coral text-sm -mt-2"
+        >
+          {{ errors.lookingFor }}
+        </p>
+      </div>
+
       <!-- How did you hear -->
       <div class="flex flex-col gap-4 w-full">
         <label
@@ -167,7 +213,8 @@
           <label
             for="referral-other"
             class="sr-only"
-          >Please tell us more about how you heard about us</label>
+            >Please tell us more about how you heard about us</label
+          >
           <input
             id="referral-other"
             v-model="form.referralOther"
@@ -316,10 +363,15 @@ const words = [
   'waves',
   'floats',
   'zings',
-  'skibidis',
   'drips',
-  'caps',
   'flexes',
+  'rips',
+  'hits',
+  'cuts',
+  'mixes',
+  'sounds',
+  'slices',
+  'wraps',
 ]
 const currentWordIndex = ref(0)
 const currentWord = computed(() => words[currentWordIndex.value])
@@ -340,6 +392,7 @@ onUnmounted(() => {
 const form = reactive({
   name: '',
   email: '',
+  lookingFor: '',
   referral: '',
   referralOther: '',
   agreeTerms: false,
@@ -349,6 +402,7 @@ const form = reactive({
 const errors = reactive({
   name: '',
   email: '',
+  lookingFor: '',
   referral: '',
   referralOther: '',
   agreeTerms: '',
@@ -371,6 +425,7 @@ const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 function validate() {
   errors.name = ''
   errors.email = ''
+  errors.lookingFor = ''
   errors.referral = ''
   errors.referralOther = ''
   errors.agreeTerms = ''
@@ -387,6 +442,11 @@ function validate() {
     valid = false
   } else if (!emailRegex.test(form.email.trim())) {
     errors.email = 'Please enter a valid email address.'
+    valid = false
+  }
+
+  if (!form.lookingFor) {
+    errors.lookingFor = 'Please select an option.'
     valid = false
   }
 
@@ -435,6 +495,7 @@ async function handleSubmit() {
       body: {
         name: form.name.trim(),
         email: form.email.trim(),
+        lookingFor: form.lookingFor,
         referral: form.referral,
         referralOther: form.referralOther.trim(),
         agreeTerms: form.agreeTerms,
@@ -504,5 +565,13 @@ async function handleSubmit() {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border-width: 0;
+}
+
+input {
+  border-radius: 0px;
+}
+
+select {
+  border-radius: 0px;
 }
 </style>
