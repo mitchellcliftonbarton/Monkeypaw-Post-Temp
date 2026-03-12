@@ -18,7 +18,7 @@
     <div class="relative">
       <figure class="aspect-[6/4] relative w-[82vw] lg:w-[50vw] lg:max-w-[800px]">
         <img
-          src="/images/hero-image.png"
+          src="/images/mp-post-home.jpg"
           class="w-full h-full object-center object-cover"
           alt=""
           loading="lazy"
@@ -49,7 +49,7 @@
           class="text-coral"
           aria-hidden="true"
           >{{ currentWord }}</span
-        ><br />different with us
+        ><br />different with us.
       </p>
 
       <p class="text-sm lg:text-base text-white font-light">Curious?</p>
@@ -242,9 +242,9 @@
             <input
               type="checkbox"
               v-model="form.agreeTerms"
-              class="checkbox-custom mt-1 shrink-0 translate-y-[-0.2em]"
+              class="checkbox-custom mt-1 shrink-0 translate-y-[-0.22em]"
             />
-            <span class="text-white text-sm lg:text-base font-light">
+            <span class="text-white text-sm font-light">
               I have read and agree to the
               <NuxtLink
                 to="/terms"
@@ -273,9 +273,9 @@
           <input
             type="checkbox"
             v-model="form.agreeMarketing"
-            class="checkbox-custom mt-1 shrink-0 translate-y-[-0.2em]"
+            class="checkbox-custom mt-1 shrink-0 translate-y-[-0.22em]"
           />
-          <span class="text-white text-sm lg:text-base font-light">I agree to future marketing emails</span>
+          <span class="text-white text-sm font-light">I agree to future marketing emails</span>
         </label>
       </div>
 
@@ -303,7 +303,7 @@
           :disabled="isSubmitting"
           class="text-coral text-sm cursor-pointer px-5 py-2 border border-coral rounded-lg font-light lg:hover:bg-coral lg:hover:text-black transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus-visible:ring-2 focus-visible:ring-coral focus-visible:ring-offset-2 focus-visible:ring-offset-black"
         >
-          {{ isSubmitting ? 'Sending...' : 'Tell me more' }}
+          {{ isSubmitting ? 'Sending...' : 'Tell Me More' }}
         </button>
         <p
           v-if="submitError"
@@ -340,7 +340,12 @@
 <script setup>
 import Hand from '~/components/Hand.vue'
 
-useHead({ title: 'Home' })
+useHead({
+  title: 'Home',
+  meta: [
+    { property: 'og:image', content: '/images/mp-post-home.jpg' },
+  ],
+})
 
 // --- Spam prevention ---
 const honeypot = ref('')
@@ -539,11 +544,11 @@ async function handleSubmit() {
     background-color 0.2s,
     border-color 0.2s;
 
-  @media (min-width: 1024px) {
+  /*@media (min-width: 1024px) {
     width: 2rem;
     height: 2rem;
     border-radius: 0.5rem;
-  }
+  }*/
 }
 
 .checkbox-custom:checked {
