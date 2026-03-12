@@ -341,8 +341,9 @@
 import Hand from '~/components/Hand.vue'
 
 useHead({
-  title: 'Home',
+  title: 'Monkeypaw Post',
   meta: [
+    { property: 'og:title', content: 'Monkeypaw Post' },
     { property: 'og:image', content: '/images/mp-post-home.jpg' },
   ],
 })
