@@ -30,4 +30,10 @@ export default defineNuxtConfig({
     airtableBaseId: '', // NUXT_AIRTABLE_BASE_ID
     airtableTableName: '', // NUXT_AIRTABLE_TABLE_NAME
   },
+
+  modules: ['nuxt-gtag'],
+
+  gtag: {
+    id: 'G-BZWBV3GEG5',
+  },
 })

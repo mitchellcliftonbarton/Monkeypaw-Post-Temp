@@ -5,6 +5,7 @@
       to="/"
       aria-label="Monkeypaw Post – go to homepage"
     >
+      <!--
       <img
         src="/images/monkeypaw-logo.svg"
         class="w-[80px] lg:w-[120px]"
@@ -13,6 +14,16 @@
         width="120"
         height="51.96"
       />
+      -->
+      <video
+        src="/videos/logo-video.mp4"
+        class="video-logo w-[140px] lg:w-[180px]"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="metadata"
+      ></video>
     </NuxtLink>
 
     <div class="relative">
@@ -244,7 +255,7 @@
               v-model="form.agreeTerms"
               class="checkbox-custom mt-1 shrink-0 translate-y-[-0.22em]"
             />
-            <span class="text-white text-sm font-light">
+            <span class="text-white text-sm font-light text-justify">
               I have read and agree to the
               <NuxtLink
                 to="/terms"
@@ -275,7 +286,7 @@
             v-model="form.agreeMarketing"
             class="checkbox-custom mt-1 shrink-0 translate-y-[-0.22em]"
           />
-          <span class="text-white text-sm font-light">I agree to future marketing emails</span>
+          <span class="text-white text-sm font-light">I agree to future marketing emails.</span>
         </label>
       </div>
 
@@ -317,8 +328,8 @@
     <!-- Footer logos -->
     <div class="fade-in flex items-center gap-6 mt-20 pb-12">
       <img
-        src="/images/monkeypaw-logo.svg"
-        class="w-[100px]"
+        src="/images/mp-logo-new.svg"
+        class="logo-footer w-[100px]"
         alt="Monkeypaw Post"
         loading="lazy"
         width="100"
@@ -579,5 +590,14 @@ input {
 
 select {
   border-radius: 0px;
+}
+
+.video-logo {
+  filter: invert(1) brightness(1.5);
+  mix-blend-mode: hard-light;
+}
+
+.logo-footer {
+  filter: invert(1) brightness(1.5);
 }
 </style>
