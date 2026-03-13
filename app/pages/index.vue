@@ -555,12 +555,6 @@ async function handleSubmit() {
   transition:
     background-color 0.2s,
     border-color 0.2s;
-
-  /*@media (min-width: 1024px) {
-    width: 2rem;
-    height: 2rem;
-    border-radius: 0.5rem;
-  }*/
 }
 
 .checkbox-custom:checked {
