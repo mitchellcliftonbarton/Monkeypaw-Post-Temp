@@ -38,7 +38,7 @@
         />
 
         <Hand
-          class="fade-in animation-delay-1 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[calc(100%+50px)] w-auto mix-blend-difference"
+          class="fade-in animation-delay-1 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[calc(100%+90px)] lg:h-[calc(100%+150px)] w-auto mix-blend-difference"
         />
       </figure>
 
@@ -328,8 +328,8 @@
     <!-- Footer logos -->
     <div class="fade-in flex items-center gap-6 mt-20 pb-12">
       <img
-        src="/images/mp-logo-new.svg"
-        class="logo-footer w-[100px]"
+        src="/images/monkeypaw-logo.svg"
+        class="w-[100px]"
         alt="Monkeypaw Post"
         loading="lazy"
         width="100"
@@ -559,6 +559,10 @@ async function handleSubmit() {
 
 .checkbox-custom:checked {
   background-color: var(--color-coral);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M3 8l3.5 3.5L13 5' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 70%;
 }
 
 .checkbox-custom:focus-visible {
