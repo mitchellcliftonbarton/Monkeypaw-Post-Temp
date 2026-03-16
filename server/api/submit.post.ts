@@ -17,7 +17,7 @@ export default defineEventHandler(async (event) => {
   // ].join('\n')
 
   const lookingForLabels: Record<string, string> = {
-    'sound-mix-design-edit': 'Sound Mix | Design | Edit',
+    'audio-finishing': 'Audio Finishing',
     'vfx-animation': 'VFX | Animation',
     'motion-design-graphics-packages': 'Motion Design | Graphics Packages',
     'offline-edit-podcast-edit': 'Offline Edit | Podcast Edit',

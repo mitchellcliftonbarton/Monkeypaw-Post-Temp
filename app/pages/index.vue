@@ -155,7 +155,7 @@
             >
               Select
             </option>
-            <option value="sound-mix-design-edit">Sound Mix | Design | Edit</option>
+            <option value="audio-finishing">Audio Finishing</option>
             <option value="vfx-animation">VFX | Animation</option>
             <option value="motion-design-graphics-packages">Motion Design | Graphics Packages</option>
             <option value="offline-edit-podcast-edit">Offline Edit | Podcast Edit</option>
