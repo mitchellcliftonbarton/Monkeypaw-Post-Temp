@@ -619,7 +619,7 @@ select {
 }
 
 .video-logo {
-  filter: brightness(1.5);
+  filter: invert(1) brightness(1.5);
   mix-blend-mode: hard-light;
 }
 
