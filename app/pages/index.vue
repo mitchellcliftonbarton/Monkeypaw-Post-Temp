@@ -15,15 +15,10 @@
         height="51.96"
       />
       -->
-      <video
-        src="/videos/logo-video.mp4"
+      <div
+        ref="lottieContainer"
         class="video-logo w-[140px] lg:w-[180px]"
-        autoplay
-        muted
-        loop
-        playsinline
-        preload="metadata"
-      ></video>
+      />
     </NuxtLink>
 
     <div class="relative">
@@ -350,6 +345,7 @@
 
 <script setup>
 import Hand from '~/components/Hand.vue'
+import lottie from 'lottie-web'
 
 useHead({
   title: 'Monkeypaw Post',
@@ -357,6 +353,34 @@ useHead({
     { property: 'og:title', content: 'Monkeypaw Post' },
     { property: 'og:image', content: '/images/mp-post-home.jpg' },
   ],
+})
+
+// --- Lottie logo ---
+const lottieContainer = ref(null)
+let lottieInstance = null
+let lottieLoopTimer = null
+
+onMounted(() => {
+  if (lottieContainer.value) {
+    lottieInstance = lottie.loadAnimation({
+      container: lottieContainer.value,
+      renderer: 'svg',
+      loop: false,
+      autoplay: true,
+      path: '/json/logo-lottie.json',
+    })
+
+    lottieInstance.addEventListener('complete', () => {
+      lottieLoopTimer = setTimeout(() => {
+        lottieInstance.goToAndPlay(0)
+      }, 5000)
+    })
+  }
+})
+
+onUnmounted(() => {
+  clearTimeout(lottieLoopTimer)
+  lottieInstance?.destroy()
 })
 
 // --- Spam prevention ---
@@ -590,12 +614,12 @@ select {
   border-radius: 0px;
 }
 
-.video-logo {
-  filter: invert(1) brightness(1.5);
-  mix-blend-mode: hard-light;
-}
-
 .logo-footer {
   filter: invert(1) brightness(1.5);
+}
+
+.video-logo {
+  filter: brightness(1.5);
+  mix-blend-mode: hard-light;
 }
 </style>
