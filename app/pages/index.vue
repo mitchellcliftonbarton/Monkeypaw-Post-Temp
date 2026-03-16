@@ -333,7 +333,7 @@
       <p class="font-light pointer-events-none">×</p>
       <img
         src="/images/industry-kids-logo.png"
-        class="w-[70px] ik-logo"
+        class="w-[77px] ik-logo"
         alt="Industry Kids"
         loading="lazy"
         width="70"
@@ -621,5 +621,9 @@ select {
 .video-logo {
   filter: brightness(1.5);
   mix-blend-mode: hard-light;
+}
+
+.ik-logo {
+  filter: invert(1);
 }
 </style>
