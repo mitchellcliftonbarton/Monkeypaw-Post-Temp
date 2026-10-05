@@ -320,26 +320,15 @@
       </div>
     </form>
 
-    <!-- Footer logos -->
-    <div class="fade-in flex items-center gap-6 mt-20 pb-12">
-      <img
-        src="/images/monkeypaw-logo.svg"
-        class="w-[100px]"
-        alt="Monkeypaw Post"
-        loading="lazy"
-        width="100"
-        height="41.96"
-      />
-      <p class="font-light pointer-events-none">×</p>
-      <img
-        src="/images/industry-kids-logo.png"
-        class="w-[77px] ik-logo"
-        alt="Industry Kids"
-        loading="lazy"
-        width="70"
-        height="70"
-      />
-    </div>
+    <!-- Footer logo -->
+    <img
+      src="/images/monkeypaw-logo.svg"
+      class="fade-in w-[100px] mt-20 mb-12"
+      alt="Monkeypaw Post"
+      loading="lazy"
+      width="100"
+      height="41.96"
+    />
   </div>
 </template>
 
@@ -565,10 +554,6 @@ async function handleSubmit() {
   pointer-events: none;
 }
 
-.ik-logo {
-  /* filter: grayscale(100%); */
-}
-
 .checkbox-custom {
   appearance: none;
   width: 1.5rem;
@@ -621,9 +606,5 @@ select {
 .video-logo {
   filter: invert(1) brightness(1.5);
   mix-blend-mode: hard-light;
-}
-
-.ik-logo {
-  filter: invert(1);
 }
 </style>
